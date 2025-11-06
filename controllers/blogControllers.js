@@ -88,17 +88,14 @@ const modify = (req, res) => {
 //destroy function
 const destroy = (req, res) => {
     const id = parseInt(req.params.id)
-    console.log(id)
-    const post = blogPosts.find(item => item.id === id)
-    console.log(post)
-    if (!post) {
-        return res.status(404).send('post not found')
-    }
-    console.log(blogPosts.indexOf(post))
+    const sql = 'DELETE FROM posts WHERE id = ?'
 
-    blogPosts.splice(blogPosts.indexOf(post), 1)
+    //Eliminiamo il post dal db
+    connection.query(sql, [id], (err) => {
+        if (err) return res.status(500).json({ error: 'Failed to delete post' });
+        res.sendStatus(204)
+    });
 
-    res.status(204).send('elemento cancellato')
 
 }
 
