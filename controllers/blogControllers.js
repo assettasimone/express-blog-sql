@@ -1,17 +1,18 @@
-//data imports for controllers
-const blogPosts = require('../data/posts')
+// Importiamo il file di connessione al database
+const connection = require('../data/db');
 
 
 //index function
 const index = (req, res) => {
 
-    let filteredPosts = blogPosts
+    const sql = 'SELECT * FROM posts';
 
-    if (req.query.tags) {
-        filteredPosts = blogPosts.filter(item => item.tags.includes(req.query.tags))
-    }
+    connection.query(sql, (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database query failed' });
+        console.log(res);
 
-    res.json(filteredPosts)
+        res.json(results);
+    });
 }
 
 

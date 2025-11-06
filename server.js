@@ -9,8 +9,6 @@ const postsRouter = require('./routers/posts')
 app.use('/api/posts', postsRouter)
 
 
-
-
 //index
 app.get('/', (req, res) => {
     res.send('server online')
